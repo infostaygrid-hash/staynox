@@ -80,8 +80,8 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.heroBackground}>
           <Image
-            src="/images/greater_noida_cityscape.jpg"
-            alt="Greater Noida"
+            src="/images/greater_noida_evening.jpg"
+            alt="Greater Noida Evening"
             fill
             className={styles.heroImage}
             priority
