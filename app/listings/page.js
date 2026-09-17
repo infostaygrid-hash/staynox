@@ -326,6 +326,7 @@ function ListingsContent() {
                     { val: 'all',    label: 'All' },
                     { val: 'PG',     label: 'PG' },
                     { val: 'Hostel', label: 'Hostel' },
+                    { val: 'Flat',   label: 'Flat' },
                   ].map(o => (
                     <button
                       key={o.val}

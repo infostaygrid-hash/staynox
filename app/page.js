@@ -116,6 +116,7 @@ export default function Home() {
               <option value="All">All Types</option>
               <option value="PG">PG</option>
               <option value="Hostel">Hostel</option>
+              <option value="Flat">Flat</option>
             </select>
             <button type="submit" className={styles.searchButton}>Search</button>
           </form>
