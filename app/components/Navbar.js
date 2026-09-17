@@ -99,6 +99,10 @@ export default function Navbar() {
               <option value="greater-noida">Greater Noida</option>
             </select>
 
+            <Link href="/owner/login" className={styles.partnerBtn}>
+              Partner with us
+            </Link>
+
             {user ? (
               <div className={styles.userMenu}>
                 <span className={styles.userAvatar}>
