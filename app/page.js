@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
 import PropertyCard from './components/PropertyCard';
+import VibeMatch from './components/VibeMatch';
 import { getFeaturedProperties } from '@/app/data/properties';
 
 const AREAS = [
@@ -149,6 +150,15 @@ export default function Home() {
           <div className={styles.trustDot} />
           <div className={styles.trustItem}>📍 Greater Noida</div>
         </div>
+      </section>
+
+      {/* ── Vibe Match Section ── */}
+      <section className={styles.vibeSection}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Find Your Vibe</h2>
+          <p className={styles.sectionSubtitle}>Take our quick quiz to find your perfect stay.</p>
+        </div>
+        <VibeMatch />
       </section>
 
       {/* ── Featured Properties ── */}

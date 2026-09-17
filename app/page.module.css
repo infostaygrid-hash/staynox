@@ -228,19 +228,30 @@
 }
 
 .sectionSubtitle {
-  font-size: 1rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .viewAllLink {
-  font-size: 0.9rem;
-  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: var(--primary);
   text-decoration: none;
+  font-weight: 600;
   transition: opacity 0.2s;
 }
 
-.viewAllLink:hover { opacity: 0.7; }
+.viewAllLink:hover {
+  opacity: 0.8;
+}
+
+.vibeSection {
+  padding: 6rem 2rem;
+  background-color: var(--surface-soft);
+}
 
 .areasGrid {
   display: grid;
