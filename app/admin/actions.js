@@ -30,7 +30,7 @@ import { createClient } from '@supabase/supabase-js';
 export async function saveProperty(formData) {
   const cookieStore = await cookies();
   if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) {
-    throw new Error('Unauthorized');
+    return { success: false, error: 'Unauthorized' };
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -62,12 +62,12 @@ export async function saveProperty(formData) {
   if (formData.id) {
     propertyId = formData.id;
     const { error } = await supabase.from('properties').update(propData).eq('id', propertyId);
-    if (error) throw new Error(error.message);
+    if (error) return { success: false, error: error.message };
   } else {
     // Generate slug from name
     propData.slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const { data, error } = await supabase.from('properties').insert([propData]).select().single();
-    if (error) throw new Error(error.message);
+    if (error) return { success: false, error: error.message };
     propertyId = data.id;
   }
 

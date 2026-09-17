@@ -17,9 +17,11 @@ export default function PropertyManager({ initialProperties }) {
         setEditingProperty(null);
         // Soft refresh to show new data immediately
         window.location.reload();
+      } else {
+        alert('Error saving property: ' + result.error);
       }
     } catch (error) {
-      alert('Error saving property: ' + error.message);
+      alert('Network or unexpected error: ' + error.message);
     }
   };
 
