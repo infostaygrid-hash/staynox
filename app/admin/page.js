@@ -30,8 +30,14 @@ export default async function AdminDashboard() {
     .select('*')
     .order('created_at', { ascending: false });
 
+  const { data: pendingOwners, error: pendingError } = await supabase
+    .from('owners')
+    .select('*')
+    .like('subscription_status', 'pending_%');
+
   if (propsError) console.error(propsError);
   if (enqError) console.error(enqError);
+  if (pendingError) console.error(pendingError);
 
   return (
     <div className={styles.dashboard}>
@@ -49,7 +55,49 @@ export default async function AdminDashboard() {
           <h3>Total Leads (Enquiries)</h3>
           <div className={styles.statValue}>{enquiries?.length || 0}</div>
         </div>
+        <div className={styles.statCard} style={{ borderColor: 'var(--primary)', background: '#E5F3E7' }}>
+          <h3>Pending Payments</h3>
+          <div className={styles.statValue} style={{ color: 'var(--primary)' }}>{pendingOwners?.length || 0}</div>
+        </div>
       </div>
+
+      {pendingOwners?.length > 0 && (
+        <section className={styles.card} style={{ marginBottom: '2rem', border: '2px solid var(--primary)' }}>
+          <h2>Action Required: Pending Payments</h2>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Owner Name</th>
+                  <th>Email</th>
+                  <th>Submitted UTR</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pendingOwners.map(owner => (
+                  <tr key={owner.id}>
+                    <td>{owner.full_name}</td>
+                    <td>{owner.email}</td>
+                    <td><strong style={{ background: '#FFF3CD', padding: '4px 8px', borderRadius: '4px' }}>{owner.subscription_status.replace('pending_', '')}</strong></td>
+                    <td>
+                      <form action={async () => {
+                        'use server';
+                        const { approvePayment } = await import('./actions.js');
+                        await approvePayment(owner.id);
+                      }}>
+                        <button type="submit" style={{ background: 'var(--primary)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                          Approve Payment
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
 
       <div className={styles.grid}>
         <section className={styles.card}>

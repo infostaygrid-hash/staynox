@@ -111,3 +111,32 @@ export async function saveProperty(formData) {
 
   return { success: true, id: propertyId };
 }
+
+export async function approvePayment(ownerId) {
+  const cookieStore = await cookies();
+  if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  // Set owner subscription to active
+  const { error: ownerErr } = await supabase
+    .from('owners')
+    .update({ subscription_status: 'active' })
+    .eq('id', ownerId);
+
+  if (ownerErr) return { success: false, error: ownerErr.message };
+
+  // Set owner's properties to active
+  const { error: propErr } = await supabase
+    .from('properties')
+    .update({ is_active: true })
+    .eq('owner_id', ownerId);
+
+  if (propErr) return { success: false, error: propErr.message };
+
+  return { success: true };
+}
