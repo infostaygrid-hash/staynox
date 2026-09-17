@@ -39,6 +39,14 @@
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 2rem;
+  padding-top: 5rem; /* Push down to clear the fixed navbar */
+}
+
+.dashboardTitle {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  font-weight: 700;
 }
 
 .statsGrid {

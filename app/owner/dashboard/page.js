@@ -54,16 +54,10 @@ export default function OwnerDashboard() {
   
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <h1>Owner Dashboard</h1>
-          <div className={styles.headerActions}>
-            <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
-          </div>
-        </div>
-      </header>
+
 
       <main className={styles.main}>
+        <h1 className={styles.dashboardTitle}>Owner Dashboard</h1>
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <h3>Total Views</h3>
