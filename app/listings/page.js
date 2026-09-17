@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { filterProperties } from '@/app/data/properties';
 import PropertyCard from '@/app/components/PropertyCard';
+import CompareDock from '@/app/components/CompareDock';
+import CompareModal from '@/app/components/CompareModal';
 import styles from './page.module.css';
 
 const AREAS = [
@@ -54,6 +56,23 @@ function ListingsContent() {
   const [notifySent, setNotifySent] = useState(false);
   const [areaSearch, setAreaSearch] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Compare state
+  const [compareList, setCompareList] = useState([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
+
+  const handleCompareToggle = (property) => {
+    setCompareList(prev => {
+      if (prev.find(p => p.id === property.id)) {
+        return prev.filter(p => p.id !== property.id);
+      }
+      if (prev.length < 3) {
+        return [...prev, property];
+      }
+      alert('You can only compare up to 3 properties at a time.');
+      return prev;
+    });
+  };
 
   // Read filters from URL on mount
   useEffect(() => {
@@ -577,7 +596,11 @@ function ListingsContent() {
                 <div className={`${styles.grid} ${isLoading ? styles.loading : ''}`}>
                   {filteredData.map((property, index) => (
                     <div key={property.id} className={styles.cardWrapper} style={{ animationDelay: `${index * 0.05}s` }}>
-                      <PropertyCard property={property} />
+                      <PropertyCard 
+                        property={property} 
+                        onCompare={handleCompareToggle}
+                        isComparing={compareList.some(p => p.id === property.id)}
+                      />
                     </div>
                   ))}
                 </div>
@@ -586,6 +609,19 @@ function ListingsContent() {
           </div>
         </div>
       </div>
+
+      <CompareDock 
+        selectedProperties={compareList} 
+        onRemove={(id) => setCompareList(prev => prev.filter(p => p.id !== id))}
+        onClear={() => setCompareList([])}
+        onCompare={() => setIsCompareModalOpen(true)}
+      />
+
+      <CompareModal 
+        isOpen={isCompareModalOpen} 
+        onClose={() => setIsCompareModalOpen(false)} 
+        properties={compareList} 
+      />
     </div>
   );
 }

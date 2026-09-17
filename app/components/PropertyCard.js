@@ -13,7 +13,7 @@ const amenityIcons = {
   Gym: '💪'
 };
 
-export default function PropertyCard({ property }) {
+export default function PropertyCard({ property, onCompare, isComparing }) {
   const { slug, id, name, type, gender, area, city, price, rating, reviews, amenities, images, billing_cycle } = property;
   const lowestPrice = price?.triple || price?.double || price?.single || 'N/A';
   const billingSuffix = billing_cycle === 'yearly' ? '/yr' : '/mo';
@@ -41,6 +41,18 @@ export default function PropertyCard({ property }) {
           <span className={`${styles.badge} ${styles[`type${type}`]}`}>{type}</span>
           <span className={`${styles.badge} ${styles[`gender${gender}`]}`}>{gender}</span>
         </div>
+        {onCompare && (
+          <button 
+            className={`${styles.compareToggle} ${isComparing ? styles.comparing : ''}`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onCompare(property);
+            }}
+          >
+            {isComparing ? '✓ Added' : '+ Compare'}
+          </button>
+        )}
       </div>
       <div className={styles.content}>
         <h3 className={styles.name}>{name}</h3>

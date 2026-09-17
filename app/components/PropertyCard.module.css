@@ -71,6 +71,34 @@
   color: #ff4757;
 }
 
+.compareToggle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s;
+}
+
+.compareToggle:hover {
+  background: white;
+  transform: scale(1.05);
+}
+
+.compareToggle.comparing {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
 .badge {
   padding: 4px 10px;
   border-radius: 20px;
