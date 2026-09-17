@@ -7,8 +7,20 @@ export default function AboutPage() {
   return (
     <div className={styles.container}>
       <section className={styles.hero}>
-        <h1>About StayNox</h1>
-        <p>Helping students and professionals find their perfect home away from home in Greater Noida</p>
+        <div className={styles.heroBackground}>
+          <Image
+            src="/images/greater_noida_cityscape.jpg"
+            alt="Greater Noida Background"
+            fill
+            className={styles.heroImage}
+            priority
+          />
+          <div className={styles.heroOverlay}></div>
+        </div>
+        <div className={styles.heroContent}>
+          <h1>About StayNox</h1>
+          <p>Helping students and professionals find their perfect home away from home in Greater Noida</p>
+        </div>
       </section>
 
       <section className={styles.section}>
