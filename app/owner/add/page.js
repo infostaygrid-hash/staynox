@@ -65,7 +65,6 @@ export default function OwnerAddProperty() {
         established: formData.established,
         commute_times: formData.commute_times,
         video_url: formData.video_url,
-        is_verified: true,
         featured: false,
         is_active: true // Active immediately for managed marketplace
       };
