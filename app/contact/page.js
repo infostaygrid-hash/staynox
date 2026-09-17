@@ -165,8 +165,21 @@ Message: ${form.message.value}`;
 
       <div>
         <h2 className={styles.sectionTitle}>Find Us Here</h2>
-        <div className={styles.mapContainer}>
-          Map coming soon
+        <div className={styles.creativeMapContainer}>
+          <div className={styles.pulseWrapper}>
+            <div className={styles.pulseRing}></div>
+            <div className={styles.pulseRing2}></div>
+            <div className={styles.mapPin}>📍</div>
+          </div>
+          <div className={styles.locationDetails}>
+            <h3>StayNox HQ</h3>
+            <p>Knowledge Park, Greater Noida<br />Uttar Pradesh, India</p>
+            <div className={styles.operatingAreas}>
+              <span className={styles.areaTag}>✨ Galgotias</span>
+              <span className={styles.areaTag}>✨ GL Bajaj</span>
+              <span className={styles.areaTag}>✨ NIET</span>
+            </div>
+          </div>
         </div>
       </div>
 
