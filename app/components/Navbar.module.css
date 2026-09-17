@@ -192,6 +192,26 @@
   pointer-events: all;
 }
 
+.adminLink {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.partnerLink {
+  background: var(--primary);
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.partnerLink:hover {
+  opacity: 0.9;
+}
+
 .mobileLink {
   font-size: 1.5rem;
   color: #717171;
