@@ -155,7 +155,7 @@ export default function Home() {
 
       {/* ── Vibe Match Section ── */}
       <section className={styles.vibeSection}>
-        <div className={styles.sectionHeader}>
+        <div className={styles.centerHeader}>
           <h2 className={styles.sectionTitle}>Find Your Vibe</h2>
           <p className={styles.sectionSubtitle}>Take our quick quiz to find your perfect stay.</p>
         </div>
@@ -227,7 +227,7 @@ export default function Home() {
 
       {/* ── How It Works ── */}
       <section className={styles.howItWorksSection}>
-        <div className={styles.sectionHeader}>
+        <div className={styles.centerHeader}>
           <h2 className={styles.sectionTitle}>How It Works</h2>
           <p className={styles.sectionSubtitle}>Find your perfect stay in 3 simple steps</p>
         </div>
