@@ -62,12 +62,12 @@ export async function saveProperty(formData) {
   if (formData.id) {
     propertyId = formData.id;
     const { error } = await supabase.from('properties').update(propData).eq('id', propertyId);
-    if (error) throw error;
+    if (error) throw new Error(error.message);
   } else {
     // Generate slug from name
     propData.slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const { data, error } = await supabase.from('properties').insert([propData]).select().single();
-    if (error) throw error;
+    if (error) throw new Error(error.message);
     propertyId = data.id;
   }
 
