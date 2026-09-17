@@ -72,22 +72,22 @@ export default function AboutPage() {
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>✅</div>
             <h4>Verified Properties</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Every listing is personally verified by our team.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>Every listing is personally verified by our team.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>💰</div>
             <h4>Best Prices</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Direct connections with owners, no middleman fees.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>Direct connections with owners, no middleman fees.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>📸</div>
             <h4>Real Photos</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>What you see on the platform is what you get.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>What you see on the platform is what you get.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>🤝</div>
             <h4>24/7 Support</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Our team is always here to assist you.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>Our team is always here to assist you.</p>
           </div>
         </div>
       </section>
