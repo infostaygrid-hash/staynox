@@ -131,8 +131,8 @@ Message: ${form.message.value}`;
             <li>
               <span className={styles.infoIcon}>⏰</span>
               <div>
-                <strong>Working Hours</strong><br />
-                Mon-Sat, 9 AM - 7 PM
+                <strong>24/7 Support</strong><br />
+                Always available
               </div>
             </li>
           </ul>
