@@ -1,24 +1,56 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { supabase } from '@/utils/supabase/client';
 import styles from './dashboard.module.css';
 
-// Mock owner properties
-const MOCK_OWNER_PROPS = [
-  {
-    id: 101,
-    name: 'Sunrise Boys PG',
-    type: 'PG',
-    status: 'active',
-    subscription_end: '2026-10-15',
-    views: 342,
-    leads: 12
-  }
-];
-
 export default function OwnerDashboard() {
-  const [properties, setProperties] = useState(MOCK_OWNER_PROPS);
+  const router = useRouter();
+  const [properties, setProperties] = useState([]);
+  const [owner, setOwner] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push('/owner/login');
+        return;
+      }
+
+      // Fetch owner profile
+      const { data: ownerData } = await supabase
+        .from('owners')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+        
+      if (ownerData) {
+        setOwner(ownerData);
+        // Fetch properties for this owner
+        const { data: propsData } = await supabase
+          .from('properties')
+          .select('*')
+          .eq('owner_id', ownerData.id);
+        
+        if (propsData) setProperties(propsData);
+      }
+      setLoading(false);
+    };
+
+    fetchDashboard();
+  }, [router]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/owner/login');
+  };
+
+  if (loading) {
+    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading dashboard...</div>;
+  }
   
   return (
     <div className={styles.container}>
@@ -26,7 +58,7 @@ export default function OwnerDashboard() {
         <div className={styles.headerContent}>
           <h1>Owner Dashboard</h1>
           <div className={styles.headerActions}>
-            <button className={styles.logoutBtn}>Logout</button>
+            <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
           </div>
         </div>
       </header>
