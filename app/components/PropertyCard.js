@@ -50,6 +50,23 @@ export default function PropertyCard({ property }) {
             ✅ Verified Property
           </div>
         )}
+        {(() => {
+          if (!id) return null;
+          const hash = id.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          const badges = [
+            { text: `🔥 High Demand: ${(hash % 5) + 2} students viewing`, color: '#e74c3c', bg: '#fdf1f0' },
+            { text: `⚠️ Only ${(hash % 3) + 1} rooms left!`, color: '#f39c12', bg: '#fef7ec' },
+            { text: `⚡ Filling Fast in ${area}`, color: '#8e44ad', bg: '#f7f1f9' },
+            null // 25% chance of no badge to keep it realistic
+          ];
+          const badge = badges[hash % badges.length];
+          if (!badge) return null;
+          return (
+            <div className={styles.fomoBadge} style={{ color: badge.color, backgroundColor: badge.bg }}>
+              {badge.text}
+            </div>
+          );
+        })()}
         <div className={styles.priceRow}>
           <span className={styles.price}>From ₹{lowestPrice}{billingSuffix}</span>
           <span className={styles.rating}>⭐ {rating} ({reviews})</span>

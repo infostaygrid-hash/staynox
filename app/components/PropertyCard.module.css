@@ -178,15 +178,29 @@
 }
 
 .verifiedBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--success-light);
-  color: var(--success);
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 12px;
+  display: inline-block;
+  background: #E5F3E7;
+  color: #1A5E28;
+  font-size: 0.75rem;
   font-weight: 600;
-  margin-top: 4px;
-  width: fit-content;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 0.8rem;
+}
+
+.fomoBadge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  letter-spacing: -0.3px;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
 }
