@@ -81,14 +81,14 @@ export default function OwnerDashboard() {
 
         <div className={styles.sectionHeader}>
           <h2>My Properties</h2>
-          <button className={styles.addBtn}>+ Add Property</button>
+          <button className={styles.addBtn} onClick={() => router.push('/owner/add')}>+ Add Property</button>
         </div>
 
         <div className={styles.propertyList}>
           {properties.length === 0 ? (
             <div className={styles.emptyState}>
               <p>You haven't listed any properties yet.</p>
-              <button className={styles.addBtn}>List your first property</button>
+              <button className={styles.addBtn} onClick={() => router.push('/owner/add')}>List your first property</button>
             </div>
           ) : (
             properties.map(prop => (
