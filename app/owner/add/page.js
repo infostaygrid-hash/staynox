@@ -65,9 +65,9 @@ export default function OwnerAddProperty() {
         established: formData.established,
         commute_times: formData.commute_times,
         video_url: formData.video_url,
-        is_verified: false,
+        is_verified: true,
         featured: false,
-        is_active: false // Requires subscription
+        is_active: true // Active immediately for managed marketplace
       };
 
       const { data: prop, error: propError } = await supabase.from('properties').insert(propertyPayload).select().single();

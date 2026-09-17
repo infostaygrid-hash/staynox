@@ -57,7 +57,9 @@ export async function saveProperty(formData) {
     established: formData.established,
     video_url: formData.video_url || null,
     commute_times: formData.commute_times || null,
-    featured: formData.featured
+    featured: formData.featured,
+    is_active: true, // Automatically active since admin is adding it
+    is_verified: true
   };
 
   if (formData.id) {

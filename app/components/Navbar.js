@@ -101,11 +101,10 @@ export default function Navbar() {
           <div className={styles.actions}>
             <select className={styles.citySelect} defaultValue="greater-noida">
               <option value="greater-noida">Greater Noida</option>
+              <option value="delhi">Delhi</option>
+              <option value="gurgaon">Gurgaon</option>
+              <option value="noida">Noida</option>
             </select>
-
-            <Link href="/owner/login" className={styles.partnerBtn}>
-              Partner with us
-            </Link>
 
             {user ? (
               <div className={styles.userMenu}>
