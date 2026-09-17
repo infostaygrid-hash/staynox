@@ -71,11 +71,12 @@
 }
 
 .animatedWord {
-  color: var(--primary);
+  color: #BEE3BE; /* Bright pastel sage for dark background */
   display: inline-block;
   min-width: 150px;
   text-align: left;
   animation: fadeInOut 2s infinite;
+  text-shadow: 0 0 15px rgba(190, 227, 190, 0.4);
 }
 
 @keyframes fadeInOut {
