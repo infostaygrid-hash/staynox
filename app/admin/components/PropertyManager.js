@@ -31,6 +31,7 @@ export default function PropertyManager({ initialProperties }) {
       amenities: prop.property_amenities?.map(a => a.amenity).join(', ') || '',
       rules: prop.property_rules?.map(r => r.rule).join(', ') || '',
       images: prop.property_images?.map(i => i.url).join(', ') || '',
+      commute_times: prop.commute_times || '',
     };
     setEditingProperty(formatted);
     setIsFormOpen(true);

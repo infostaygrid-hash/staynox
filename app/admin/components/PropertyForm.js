@@ -7,7 +7,7 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
   const [formData, setFormData] = useState(initialData || {
     name: '', type: 'PG', gender: 'Boys', city: 'Greater Noida', area: '',
     address: '', description: '', featured: false, video_url: '',
-    established: new Date().getFullYear().toString(),
+    established: new Date().getFullYear().toString(), commute_times: '',
     prices: { single: '', double: '', triple: '' },
     amenities: '', rules: '', images: ''
   });
@@ -116,6 +116,10 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
               <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
                 <label>Rules (Comma separated: No smoking, No guests after 10 PM)</label>
                 <input type="text" name="rules" value={formData.rules} onChange={handleChange} />
+              </div>
+              <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+                <label>Commute Times (e.g. Sharda University: 5 mins walk, Metro: 10 mins drive)</label>
+                <input type="text" name="commute_times" value={formData.commute_times} onChange={handleChange} />
               </div>
               <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
                 <label>Images (Comma separated URLs)</label>

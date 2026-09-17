@@ -158,6 +158,25 @@ export default function PropertyPage({ params }) {
               </div>
             )}
 
+            {property.commute_times && (
+              <div className={styles.descriptionSection}>
+                <h2>Commute Times & Landmarks</h2>
+                <div style={{ display: 'grid', gap: '10px', marginTop: '15px' }}>
+                  {property.commute_times.split(',').map((commute, i) => {
+                    const isWalk = commute.toLowerCase().includes('walk');
+                    const isDrive = commute.toLowerCase().includes('drive') || commute.toLowerCase().includes('car');
+                    const icon = isWalk ? '🚶' : isDrive ? '🚗' : '📍';
+                    return (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', background: 'var(--surface-soft)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+                        <span style={{ fontSize: '1.2rem' }}>{icon}</span>
+                        <span style={{ fontWeight: 500, color: 'var(--text-dark)' }}>{commute.trim()}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
             <div className={styles.amenitiesSection}>
               <h2>Amenities</h2>
               <div className={styles.amenitiesGrid}>

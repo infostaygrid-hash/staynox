@@ -55,6 +55,7 @@ export async function saveProperty(formData) {
     description: formData.description,
     established: formData.established,
     video_url: formData.video_url || null,
+    commute_times: formData.commute_times || null,
     featured: formData.featured
   };
 
