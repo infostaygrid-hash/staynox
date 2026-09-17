@@ -37,6 +37,7 @@ const DEFAULT_FILTERS = {
   gender: 'all',
   budget: 'all',
   sharing: 'all',
+  term: 'all',
   amenities: [],
   verifiedOnly: false,
   sort: 'relevance',
@@ -64,6 +65,7 @@ function ListingsContent() {
       gender:      searchParams.get('gender') || 'all',
       budget:      searchParams.get('budget') || 'all',
       sharing:     searchParams.get('sharing') || 'all',
+      term:        searchParams.get('term') || 'all',
       amenities:   am ? am.split(',') : [],
       verifiedOnly: searchParams.get('verified') === 'true',
       sort:        searchParams.get('sort') || 'relevance',
@@ -89,6 +91,14 @@ function ListingsContent() {
       // Sharing filter (in-memory since it's nested in price obj)
       if (filters.sharing !== 'all') {
         results = results.filter(p => p.price?.[filters.sharing] != null);
+      }
+
+      // Term filter (in-memory check against rules/desc)
+      if (filters.term !== 'all') {
+        results = results.filter(p => 
+          (p.rules && p.rules.some(r => r.toLowerCase().includes(filters.term))) || 
+          (p.description && p.description.toLowerCase().includes(filters.term))
+        );
       }
 
       // Verified filter
@@ -154,6 +164,7 @@ function ListingsContent() {
     (filters.gender !== 'all' ? 1 : 0) +
     (filters.budget !== 'all' ? 1 : 0) +
     (filters.sharing !== 'all' ? 1 : 0) +
+    (filters.term !== 'all' ? 1 : 0) +
     filters.amenities.length +
     (filters.verifiedOnly ? 1 : 0);
 
@@ -171,6 +182,7 @@ function ListingsContent() {
     activeChips.push({ label: b?.label, clear: () => updateFilter('budget', 'all') });
   }
   if (filters.sharing !== 'all') activeChips.push({ label: filters.sharing.charAt(0).toUpperCase() + filters.sharing.slice(1) + ' Sharing', clear: () => updateFilter('sharing', 'all') });
+  if (filters.term !== 'all') activeChips.push({ label: filters.term.charAt(0).toUpperCase() + filters.term.slice(1) + ' Plan', clear: () => updateFilter('term', 'all') });
   filters.amenities.forEach(id => {
     const am = AMENITIES_LIST.find(a => a.id === id);
     if (am) activeChips.push({ label: am.label, clear: () => toggleAmenity(id) });
@@ -260,6 +272,26 @@ function ListingsContent() {
                       key={o.val}
                       className={`${styles.optionBtn} ${filters.gender === o.val ? styles.optionActive : ''}`}
                       onClick={() => updateFilter('gender', o.val)}
+                    >{o.label}</button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.divider} />
+
+              {/* Term / Duration */}
+              <div className={styles.filterBlock}>
+                <div className={styles.filterBlockTitle}>📅 Term / Duration</div>
+                <div className={styles.optionGroup}>
+                  {[
+                    { val: 'all',     label: 'Any' },
+                    { val: 'monthly', label: 'Monthly' },
+                    { val: 'yearly',  label: 'Yearly' },
+                  ].map(o => (
+                    <button
+                      key={o.val}
+                      className={`${styles.optionBtn} ${filters.term === o.val ? styles.optionActive : ''}`}
+                      onClick={() => updateFilter('term', o.val)}
                     >{o.label}</button>
                   ))}
                 </div>
