@@ -12,8 +12,8 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 .imageContainer {
@@ -115,7 +115,7 @@
 .genderCo-ed { background: rgba(16, 185, 129, 0.8); }
 
 .content {
-  padding: 18px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 12px;
