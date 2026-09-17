@@ -1,0 +1,479 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: #0a0e1a;
+  color: #e2e8f0;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #0a0e1a;
+  color: white;
+}
+
+.backLink {
+  margin-top: 1rem;
+  color: #14b8a6;
+  text-decoration: none;
+}
+
+/* Gallery */
+.gallery {
+  margin-bottom: 3rem;
+}
+
+.mainImageContainer {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: zoom-in;
+  margin-bottom: 1rem;
+}
+
+.mainImage {
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.mainImageContainer:hover .mainImage {
+  transform: scale(1.02);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.mainImageContainer:hover .overlay {
+  opacity: 1;
+}
+
+.thumbnailStrip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.thumbnailContainer {
+  position: relative;
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.thumbnail {
+  object-fit: cover;
+}
+
+.activeThumbnail {
+  border-color: #14b8a6;
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+@media (min-width: 992px) {
+  .contentGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.badges {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.typeBadge {
+  background: rgba(20, 184, 166, 0.15);
+  color: #14b8a6;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.genderBadge {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e2e8f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  text-transform: capitalize;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.subHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+
+.descriptionSection, .amenitiesSection, .rulesSection {
+  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.descriptionSection h2, .amenitiesSection h2, .rulesSection h2, .similarSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.description {
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+/* Amenities */
+.amenitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.amenityCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s;
+}
+
+.amenityCard.available {
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  color: #14b8a6;
+}
+
+.amenityCard.unavailable {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.amenityIcon {
+  font-size: 1.25rem;
+}
+
+/* Rules */
+.rulesList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rulesList li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #cbd5e1;
+}
+
+/* Sidebar */
+.sidebar {
+  position: sticky;
+  top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.priceCard, .contactCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+.priceCard h2, .contactCard h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.pricingTiers {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.priceTier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.priceTier.bestValue {
+  border-color: #14b8a6;
+  background: rgba(20, 184, 166, 0.05);
+}
+
+.bestValueTag {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #14b8a6;
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+}
+
+.priceTier span {
+  color: #cbd5e1;
+}
+
+.priceTier strong {
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+/* Contact */
+.contactButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* WhatsApp Large CTA */
+.whatsappBtnLarge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+}
+
+.whatsappBtnLarge:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.phoneBtn, .whatsappBtn {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.phoneBtn {
+  background: var(--surface-soft);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.whatsappBtn {
+  background: #25d366;
+  color: #fff;
+}
+
+.phoneBtn:hover, .whatsappBtn:hover {
+  opacity: 0.85;
+}
+
+.divider {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.divider::before, .divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.enquiryForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input, .textarea {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+.submitBtn {
+  background: #14b8a6;
+  color: #000;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.submitBtn:hover {
+  background: #0f9d8f;
+}
+
+.toast {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(20, 184, 166, 0.2);
+  color: #14b8a6;
+  text-align: center;
+  border-radius: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.lightboxImageContainer {
+  position: relative;
+  width: 90vw;
+  height: 90vh;
+  max-width: 1200px;
+}
+
+.lightboxImage {
+  object-fit: contain;
+}
+
+.closeBtn, .prevBtn, .nextBtn {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+}
+
+.closeBtn:hover, .prevBtn:hover, .nextBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.closeBtn {
+  top: 2rem;
+  right: 2rem;
+}
+
+.prevBtn {
+  left: 2rem;
+}
+
+.nextBtn {
+  right: 2rem;
+}
+
+/* Similar Properties */
+.similarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

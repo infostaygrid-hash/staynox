@@ -1,0 +1,192 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--text-primary);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.wishlistBtn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
+  color: #717171;
+  transition: all 0.2s;
+}
+
+.wishlistBtn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.inWishlist {
+  color: #ff4757;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.typePG { background: rgba(59, 130, 246, 0.8); }
+.typeHostel { background: rgba(168, 85, 247, 0.8); }
+.genderBoys { background: rgba(59, 130, 246, 0.8); }
+.genderGirls { background: rgba(236, 72, 153, 0.8); }
+.genderCo-ed { background: rgba(16, 185, 129, 0.8); }
+
+.content {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.location {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #717171;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #222222;
+}
+
+.rating {
+  font-size: 0.875rem;
+  color: #222222;
+}
+
+.amenities {
+  display: flex;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ebebeb;
+}
+
+.amenityIcon {
+  font-size: 1.25rem;
+  filter: grayscale(0.5);
+  transition: filter 0.2s ease;
+}
+
+.card:hover .amenityIcon {
+  filter: grayscale(0);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.viewDetails {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .viewDetails {
+  opacity: 1;
+}
+
+.whatsappMini {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #25D366;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.whatsappMini:hover {
+  background: #1ebe5d;
+  transform: translateY(-1px);
+}
+
+.verifiedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--success-light);
+  color: var(--success);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+  width: fit-content;
+}

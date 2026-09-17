@@ -1,0 +1,238 @@
+.container {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  color: #222222;
+  padding: 6rem 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.header h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #222222, #0f766e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #717171;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+}
+
+.glassCard {
+  background: #ffffff;
+  border: 1px solid #ebebeb;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #222222;
+  font-size: 0.95rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: #ffffff;
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  color: #222222;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0f766e;
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 1rem;
+  background: #0f766e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitBtn:hover {
+  background: #0d9488;
+  transform: translateY(-2px);
+}
+
+.successMessage {
+  padding: 1rem;
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid #14b8a6;
+  border-radius: 8px;
+  color: #14b8a6;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.infoList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+}
+
+.infoList li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  color: #717171;
+}
+
+.infoIcon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  line-height: 1;
+}
+
+.whatsappBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  background: #25D366;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 2.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.whatsappBtn:hover {
+  background: #128C7E;
+}
+
+.whatsappBtn span {
+  margin-right: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+.socialLink {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f7f7f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f766e;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.socialLink:hover {
+  background: rgba(15, 118, 110, 0.1);
+  transform: translateY(-2px);
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  text-align: center;
+  margin: 5rem 0 3rem;
+  color: #222222;
+}
+
+.mapContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 400px;
+  background: #ffffff;
+  border: 1px dashed #b0b0b0;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #717171;
+  font-size: 1.2rem;
+}
+
+.faqContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faqItem {
+  margin-bottom: 1rem;
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.faqQuestion {
+  padding: 1.5rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #222222;
+  font-size: 1.1rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faqQuestion:hover {
+  background: #f7f7f9;
+}
+
+.faqAnswer {
+  padding: 0 1.5rem 1.5rem;
+  color: #717171;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  .header h1 {
+    font-size: 2.5rem;
+  }
+}
