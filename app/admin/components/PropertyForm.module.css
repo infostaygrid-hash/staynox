@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.85);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +10,9 @@
 }
 
 .modal {
-  background: white;
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #333333;
   border-radius: 12px;
   width: 100%;
   max-width: 800px;
@@ -22,7 +24,7 @@
 
 .header {
   padding: 20px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #333333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +33,7 @@
 .header h2 {
   margin: 0;
   font-size: 1.5rem;
-  color: var(--text-dark);
+  color: #ffffff;
 }
 
 .closeBtn {
@@ -39,7 +41,7 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--text-muted);
+  color: #cccccc;
 }
 
 .form {
@@ -51,7 +53,8 @@
 }
 
 .section {
-  background: var(--surface-soft);
+  background: #111111;
+  border: 1px solid #222222;
   padding: 20px;
   border-radius: 8px;
 }
@@ -60,7 +63,7 @@
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.1rem;
-  color: var(--text-dark);
+  color: #ffffff;
 }
 
 .grid {
@@ -78,12 +81,14 @@
 .field label {
   font-weight: 500;
   font-size: 0.9rem;
-  color: var(--text-dark);
+  color: #cccccc;
 }
 
 .field input, .field select, .field textarea {
   padding: 10px;
-  border: 1px solid var(--border);
+  background: #000000;
+  color: #ffffff;
+  border: 1px solid #444444;
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
@@ -100,7 +105,7 @@
 
 .footer {
   padding: 20px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid #333333;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -108,8 +113,9 @@
 
 .cancelBtn {
   padding: 10px 20px;
-  background: white;
-  border: 1px solid var(--border);
+  background: #222222;
+  color: #ffffff;
+  border: 1px solid #444444;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
