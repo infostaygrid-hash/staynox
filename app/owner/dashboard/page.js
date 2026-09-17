@@ -67,15 +67,15 @@ export default function OwnerDashboard() {
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <h3>Total Views</h3>
-            <p className={styles.statValue}>342</p>
+            <p className={styles.statValue}>{properties.reduce((sum, p) => sum + (p.views || 0), 0)}</p>
           </div>
           <div className={styles.statCard}>
             <h3>WhatsApp Leads</h3>
-            <p className={styles.statValue}>12</p>
+            <p className={styles.statValue}>{properties.reduce((sum, p) => sum + (p.leads || 0), 0)}</p>
           </div>
           <div className={styles.statCard}>
             <h3>Active Listings</h3>
-            <p className={styles.statValue}>1</p>
+            <p className={styles.statValue}>{properties.filter(p => p.is_active).length}</p>
           </div>
         </div>
 
