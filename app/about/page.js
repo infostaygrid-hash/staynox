@@ -57,25 +57,25 @@ export default function AboutPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Why Choose StayNox</h2>
         <div className={styles.whyChooseGrid}>
-          <div className={`${styles.glassCard} ${styles.featureCard}`} style={{ border: '2px solid var(--primary)', background: 'var(--surface-soft)', transform: 'scale(1.03)', boxShadow: '0 8px 24px rgba(104, 125, 104, 0.2)' }}>
+          <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>✅</div>
-            <h4 style={{ color: 'var(--primary)', fontWeight: 800 }}>Verified Properties</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', fontWeight: 500 }}>Every listing is personally verified by our team.</p>
+            <h4>Verified Properties</h4>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Every listing is personally verified by our team.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>💰</div>
             <h4>Best Prices</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>Direct connections with owners, no middleman fees.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Direct connections with owners, no middleman fees.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>📸</div>
             <h4>Real Photos</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>What you see on the platform is what you get.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>What you see on the platform is what you get.</p>
           </div>
           <div className={`${styles.glassCard} ${styles.featureCard}`}>
             <div className={styles.icon}>🤝</div>
             <h4>24/7 Support</h4>
-            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem' }}>Our team is always here to assist you.</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.95rem', color: '#000000' }}>Our team is always here to assist you.</p>
           </div>
         </div>
       </section>
