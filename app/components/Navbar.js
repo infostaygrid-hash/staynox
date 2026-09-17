@@ -65,6 +65,10 @@ export default function Navbar() {
     window.location.reload();
   };
 
+  const darkHeroPages = ['/', '/about', '/listings', '/wishlist'];
+  const hasDarkHero = darkHeroPages.includes(pathname);
+  const isLightText = !isScrolled && hasDarkHero;
+
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Properties', path: '/listings' },
@@ -75,7 +79,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
+      <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''} ${isLightText ? styles.lightText : ''}`}>
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
             <span className={styles.logoStay}>Stay</span>

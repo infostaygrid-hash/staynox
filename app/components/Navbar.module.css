@@ -60,6 +60,23 @@
   padding: 0.5rem 0;
 }
 
+/* Light text variant for dark hero pages */
+.lightText .logoStay {
+  color: #ffffff;
+}
+
+.lightText .link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lightText .link:hover {
+  color: #ffffff;
+}
+
+.lightText .navActions span {
+  color: #ffffff;
+}
+
 .link:hover {
   color: #0f766e;
 }
