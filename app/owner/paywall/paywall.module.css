@@ -74,7 +74,7 @@
 
 .payBtn {
   width: 100%;
-  background: #3399cc; /* Razorpay Blue */
+  background: #5f259f; /* PhonePe Purple */
   color: white;
   border: none;
   border-radius: 12px;
@@ -88,7 +88,7 @@
 
 .payBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(51, 153, 204, 0.3);
+  box-shadow: 0 10px 20px rgba(95, 37, 159, 0.3);
 }
 
 .payBtn:disabled {

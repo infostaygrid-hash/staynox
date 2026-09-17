@@ -8,14 +8,27 @@ export default function Paywall() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  const handleSimulatePayment = () => {
+  const handleSimulatePayment = async () => {
     setLoading(true);
-    // Simulate Razorpay popup delay
-    setTimeout(() => {
-      alert("✅ Payment Successful! (Simulated)\nYour property is now live on StayNox.");
+    try {
+      // For MVP, we pass a dummy ownerId. In prod, fetch from supabase auth.
+      const response = await fetch('/api/phonepe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ownerId: 'testOwner123', amount: 499 })
+      });
+      const data = await response.json();
+      if (data.success && data.redirectUrl) {
+        // Redirect to PhonePe Secure Checkout page
+        window.location.href = data.redirectUrl;
+      } else {
+        alert("Payment initialization failed. " + data.message);
+        setLoading(false);
+      }
+    } catch (err) {
+      alert("Error connecting to payment gateway.");
       setLoading(false);
-      router.push('/owner/dashboard');
-    }, 2000);
+    }
   };
 
   return (
@@ -47,7 +60,7 @@ export default function Paywall() {
           onClick={handleSimulatePayment}
           disabled={loading}
         >
-          {loading ? 'Processing Payment...' : 'Pay via Razorpay (Simulated)'}
+          {loading ? 'Processing...' : 'Pay securely via PhonePe'}
         </button>
 
         <button className={styles.backBtn} onClick={() => router.back()}>
