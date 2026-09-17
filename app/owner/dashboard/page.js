@@ -112,10 +112,6 @@ export default function OwnerDashboard() {
                       </span>
                     )}
                   </div>
-                  <div className={styles.propMeta}>
-                    <span>👀 {prop.views || 0} views</span>
-                    <span>💬 {prop.leads || 0} leads</span>
-                  </div>
                 </div>
 
                 <div className={styles.propActions}>
