@@ -35,9 +35,15 @@ export default async function AdminDashboard() {
     .select('*')
     .like('subscription_status', 'pending_%');
 
+  const { data: allOwners, error: allOwnersError } = await supabase
+    .from('owners')
+    .select('*')
+    .order('created_at', { ascending: false });
+
   if (propsError) console.error(propsError);
   if (enqError) console.error(enqError);
   if (pendingError) console.error(pendingError);
+  if (allOwnersError) console.error(allOwnersError);
 
   return (
     <div className={styles.dashboard}>
@@ -144,6 +150,48 @@ export default async function AdminDashboard() {
 
         <PropertyManager initialProperties={properties} />
       </div>
+
+      {/* All Registered Owners */}
+      <section className={styles.card} style={{ marginTop: '2rem' }}>
+        <h2>All Registered Owners ({allOwners?.length || 0})</h2>
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Properties</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody>
+              {(!allOwners || allOwners.length === 0) ? (
+                <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>No owners registered yet.</td></tr>
+              ) : (
+                allOwners.map(owner => {
+                  const ownerProps = properties?.filter(p => p.owner_id === owner.id) || [];
+                  const status = owner.subscription_status?.startsWith('pending_') ? 'Pending'
+                    : owner.subscription_status === 'active' ? 'Active' : 'Inactive';
+                  const statusColor = status === 'Active' ? '#1A5E28' : status === 'Pending' ? '#856404' : '#e74c3c';
+                  const statusBg = status === 'Active' ? '#E5F3E7' : status === 'Pending' ? '#FFF3CD' : '#fdf1f0';
+                  return (
+                    <tr key={owner.id}>
+                      <td><strong>{owner.full_name}</strong></td>
+                      <td>{owner.email}</td>
+                      <td>{owner.phone || '—'}</td>
+                      <td><span style={{ background: statusBg, color: statusColor, padding: '4px 10px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 700 }}>{status}</span></td>
+                      <td>{ownerProps.length}</td>
+                      <td>{new Date(owner.created_at).toLocaleDateString('en-IN')}</td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   );
 }
