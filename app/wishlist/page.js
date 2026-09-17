@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { useWishlist } from '../hooks/useWishlist';
 import { supabase } from '@/utils/supabase/client';
 import PropertyCard from '../components/PropertyCard';
@@ -61,7 +62,17 @@ export default function WishlistPage() {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.header}>
-        <div className={styles.container}>
+        <div className={styles.heroBackground}>
+          <Image
+            src="/images/greater_noida_evening.jpg"
+            alt="Greater Noida Background"
+            fill
+            className={styles.heroImage}
+            priority
+          />
+          <div className={styles.heroOverlay}></div>
+        </div>
+        <div className={styles.container} style={{ position: 'relative', zIndex: 1 }}>
           <h1 className={styles.title}>Your Wishlist</h1>
           <p className={styles.subtitle}>
             {wishlist.length === 0 

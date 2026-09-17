@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { filterProperties } from '@/app/data/properties';
 import PropertyCard from '@/app/components/PropertyCard';
@@ -212,7 +213,17 @@ function ListingsContent() {
     <div className={styles.pageContainer}>
       {/* Header */}
       <div className={styles.header}>
-        <div className={styles.container}>
+        <div className={styles.heroBackground}>
+          <Image
+            src="/images/greater_noida_evening.jpg"
+            alt="Greater Noida Background"
+            fill
+            className={styles.heroImage}
+            priority
+          />
+          <div className={styles.heroOverlay}></div>
+        </div>
+        <div className={styles.container} style={{ position: 'relative', zIndex: 1 }}>
           <h1 className={styles.title}>Find Your Perfect Stay</h1>
           <p className={styles.subtitle}>Premium PGs & Hostels in Greater Noida</p>
           <form className={styles.searchBar} onSubmit={e => { e.preventDefault(); updateFilter('search', filters.search); }}>
