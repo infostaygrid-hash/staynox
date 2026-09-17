@@ -130,7 +130,7 @@ export default function OwnerDashboard() {
                       </Link>
                     )}
                   </div>
-                  <button className={styles.editBtn}>Edit</button>
+                  <button className={styles.editBtn} onClick={() => alert('Edit functionality is coming soon! Please contact admin to modify your listing.')}>Edit</button>
                 </div>
               </motion.div>
             ))

@@ -26,7 +26,8 @@ export async function getProperties() {
       property_amenities (amenity),
       property_images (url, sort_order),
       property_rules (rule)
-    `);
+    `)
+    .eq('is_active', true);
   if (error) {
     console.error('Error fetching properties:', error);
     return [];
@@ -82,6 +83,7 @@ export async function getFeaturedProperties() {
       property_images (url, sort_order),
       property_rules (rule)
     `)
+    .eq('is_active', true)
     .eq('featured', true);
   if (error) {
     console.error('Error fetching featured properties:', error);
@@ -99,7 +101,8 @@ export async function filterProperties(filters = {}) {
       property_amenities!inner (amenity),
       property_images (url, sort_order),
       property_rules (rule)
-    `);
+    `)
+    .eq('is_active', true);
 
   if (filters.city) {
     query = query.ilike('city', `%${filters.city}%`);

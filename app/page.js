@@ -162,22 +162,7 @@ export default function Home() {
         <VibeMatch />
       </section>
 
-      {/* ── Featured Properties ── */}
-      {featuredProperties.length > 0 && (
-        <section className={styles.featuredSection}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Featured Stays</h2>
-            <Link href="/listings" className={styles.viewAllLink}>View all →</Link>
-          </div>
-          <div className={styles.propertiesCarousel}>
-            {featuredProperties.map(property => (
-              <div key={property.id} className={styles.carouselItem}>
-                <PropertyCard property={property} />
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+
 
       {/* ── Popular Areas ── */}
       <section className={styles.areasSection}>
