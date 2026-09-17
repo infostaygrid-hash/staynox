@@ -102,20 +102,37 @@ export default function OwnerDashboard() {
                   <div className={styles.propTitle}>
                     <h3>{prop.name}</h3>
                     <span className={styles.badge}>{prop.type}</span>
-                    <span className={`${styles.statusBadge} ${prop.status === 'active' ? styles.active : ''}`}>
-                      {prop.status === 'active' ? 'Live' : 'Hidden'}
-                    </span>
+                    {owner?.subscription_status?.startsWith('pending_') ? (
+                      <span className={styles.statusBadge} style={{ background: '#FFF3CD', color: '#856404' }}>
+                        Verification Pending
+                      </span>
+                    ) : (
+                      <span className={`${styles.statusBadge} ${prop.is_active ? styles.active : ''}`}>
+                        {prop.is_active ? 'Live' : 'Hidden'}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.propMeta}>
-                    <span>👀 {prop.views} views</span>
-                    <span>💬 {prop.leads} leads</span>
+                    <span>👀 {prop.views || 0} views</span>
+                    <span>💬 {prop.leads || 0} leads</span>
                   </div>
                 </div>
 
                 <div className={styles.propActions}>
                   <div className={styles.subInfo}>
-                    <p>Subscription ends: <strong>{prop.subscription_end}</strong></p>
-                    <Link href="/owner/paywall" className={styles.renewLink}>Renew Plan</Link>
+                    {owner?.subscription_status?.startsWith('pending_') ? (
+                      <p>UTR: <strong>{owner.subscription_status.replace('pending_', '')}</strong></p>
+                    ) : (
+                      <p>Subscription: <strong>{owner?.subscription_status === 'active' ? 'Active' : 'Inactive'}</strong></p>
+                    )}
+                    
+                    {owner?.subscription_status?.startsWith('pending_') ? (
+                      <span className={styles.renewLink} style={{ color: '#856404', textDecoration: 'none', cursor: 'default' }}>Under Review</span>
+                    ) : (
+                      <Link href="/owner/paywall" className={styles.renewLink}>
+                        {owner?.subscription_status === 'active' ? 'Manage Plan' : 'Pay to Activate'}
+                      </Link>
+                    )}
                   </div>
                   <button className={styles.editBtn}>Edit</button>
                 </div>
