@@ -65,8 +65,9 @@ export async function saveProperty(formData) {
     const { error } = await supabase.from('properties').update(propData).eq('id', propertyId);
     if (error) return { success: false, error: error.message };
   } else {
-    // Generate slug from name
-    propData.slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    // Generate unique slug from name
+    const randomSuffix = Math.random().toString(36).substr(2, 5);
+    propData.slug = formData.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + randomSuffix;
     const { data, error } = await supabase.from('properties').insert([propData]).select().single();
     if (error) return { success: false, error: error.message };
     propertyId = data.id;
