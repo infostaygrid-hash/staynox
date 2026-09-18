@@ -13,6 +13,7 @@ const formatProperty = (p) => {
     images: p.property_images ? p.property_images.sort((a, b) => a.sort_order - b.sort_order).map(i => i.url) : [],
     rules: p.property_rules ? p.property_rules.map(r => r.rule) : [],
     reviews: p.property_reviews ? p.property_reviews.filter(r => r.is_approved) : [],
+    vertical_video_url: p.vertical_video_url || null,
     contact: { phone: p.phone, whatsapp: p.whatsapp },
     isVerified: p.is_verified !== undefined ? p.is_verified : (p.rating >= 4.5)
   };

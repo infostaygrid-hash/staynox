@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { getPropertyBySlug, getProperties } from '@/app/data/properties';
 import PropertyCard from '@/app/components/PropertyCard';
 import ReviewsSection from '@/app/components/ReviewsSection';
+import VerticalVideoPlayer from '@/app/components/VerticalVideoPlayer';
 import { incrementView, incrementWhatsAppClick } from '@/app/admin/actions';
 import styles from './page.module.css';
 
@@ -137,6 +138,9 @@ export default function PropertyPage({ params }) {
             <div className={styles.descriptionSection}>
               <h2>About the Property</h2>
               <p className={styles.description}>{property.description}</p>
+              {property.vertical_video_url && (
+                <VerticalVideoPlayer videoUrl={property.vertical_video_url} />
+              )}
             </div>
 
             {property.video_url && (

@@ -49,6 +49,7 @@ export default function PropertyManager({ initialProperties }) {
       rules: prop.property_rules?.map(r => r.rule).join(', ') || '',
       images: prop.property_images?.map(i => i.url).join(', ') || '',
       commute_times: prop.commute_times || '',
+      vertical_video_url: prop.vertical_video_url || '',
     };
     setEditingProperty(formatted);
     setIsFormOpen(true);

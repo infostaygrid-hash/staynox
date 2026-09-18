@@ -6,7 +6,7 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState(initialData || {
     name: '', type: 'PG', gender: 'Boys', city: 'Greater Noida', area: '',
-    address: '', description: '', featured: false, video_url: '',
+    address: '', description: '', featured: false, video_url: '', vertical_video_url: '',
     established: new Date().getFullYear().toString(), commute_times: '',
     prices: { single: '', double: '', triple: '' },
     amenities: '', rules: '', images: ''
@@ -128,6 +128,10 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
               <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
                 <label>Video Walkthrough (YouTube URL)</label>
                 <input type="url" name="video_url" value={formData.video_url} onChange={handleChange} placeholder="https://www.youtube.com/watch?v=..." />
+              </div>
+              <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+                <label>Reels-Style Vertical Video Tour (YouTube Shorts or MP4 URL)</label>
+                <input type="url" name="vertical_video_url" value={formData.vertical_video_url} onChange={handleChange} placeholder="https://www.youtube.com/shorts/..." />
               </div>
             </div>
           </div>
