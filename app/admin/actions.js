@@ -121,6 +121,30 @@ export async function saveProperty(formData) {
   return { success: true, id: propertyId };
 }
 
+export async function deleteProperty(propertyId) {
+  const cookieStore = await cookies();
+  if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) {
+    return { success: false, error: 'Unauthorized' };
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  const { error } = await supabase.from('properties').delete().eq('id', propertyId);
+  
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  const { revalidatePath } = require('next/cache');
+  revalidatePath('/admin');
+  revalidatePath('/listings');
+  revalidatePath('/');
+
+  return { success: true };
+}
+
 export async function approvePayment(ownerId) {
   const cookieStore = await cookies();
   if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) {

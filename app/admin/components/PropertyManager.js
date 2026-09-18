@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import PropertyForm from './PropertyForm';
-import { saveProperty } from '../actions';
+import { saveProperty, deleteProperty } from '../actions';
 import styles from '../page.module.css';
 
 export default function PropertyManager({ initialProperties }) {
@@ -22,6 +22,21 @@ export default function PropertyManager({ initialProperties }) {
       }
     } catch (error) {
       alert('Network or unexpected error: ' + error.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm('Are you sure you want to permanently delete this property?')) {
+      try {
+        const result = await deleteProperty(id);
+        if (result.success) {
+          window.location.reload();
+        } else {
+          alert('Error deleting: ' + result.error);
+        }
+      } catch (error) {
+        alert('Unexpected error: ' + error.message);
+      }
     }
   };
 
@@ -78,7 +93,10 @@ export default function PropertyManager({ initialProperties }) {
                   <td>{prop.city}</td>
                   <td>{prop.featured ? '⭐ Yes' : 'No'}</td>
                   <td>
-                    <button className={styles.actionBtn} onClick={() => handleEdit(prop)}>Edit</button>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <button className={styles.actionBtn} onClick={() => handleEdit(prop)}>Edit</button>
+                      <button className={styles.actionBtn} style={{ background: '#ff4d4f', borderColor: '#ff4d4f' }} onClick={() => handleDelete(prop.id)}>Delete</button>
+                    </div>
                   </td>
                 </tr>
               ))
