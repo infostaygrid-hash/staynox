@@ -54,11 +54,17 @@ export default async function AdminDashboard() {
     .eq('is_approved', false)
     .order('created_at', { ascending: false });
 
+  const { data: roommates, error: roommatesError } = await adminSupabase
+    .from('roommates')
+    .select('*')
+    .order('created_at', { ascending: false });
+
   if (propsError) console.error(propsError);
   if (enqError) console.error(enqError);
   if (pendingError) console.error(pendingError);
   if (allOwnersError) console.error(allOwnersError);
   if (reviewsError) console.error(reviewsError);
+  if (roommatesError) console.error(roommatesError);
 
   if (propsError) {
     return <div style={{color: 'red', padding: '2rem'}}>Database Error: {propsError.message}</div>;
@@ -181,6 +187,46 @@ export default async function AdminDashboard() {
                           </button>
                         </form>
                       </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {roommates?.length > 0 && (
+        <section className={styles.card} style={{ marginBottom: '2rem' }}>
+          <h2>Roommate Profiles (Moderation)</h2>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>College</th>
+                  <th>Budget</th>
+                  <th>Bio</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {roommates.map(r => (
+                  <tr key={r.id}>
+                    <td><strong>{r.name}</strong><br/>{r.gender}</td>
+                    <td>{r.college}</td>
+                    <td>₹{r.budget_max}</td>
+                    <td><p style={{ maxWidth: '300px', whiteSpace: 'normal', margin: 0, fontSize: '0.9rem' }}>{r.bio}</p></td>
+                    <td>
+                      <form action={async () => {
+                        'use server';
+                        const { deleteRoommate } = await import('@/app/actions/roommates.js');
+                        await deleteRoommate(r.id);
+                      }}>
+                        <button type="submit" style={{ background: '#ef4444', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                          Delete
+                        </button>
+                      </form>
                     </td>
                   </tr>
                 ))}
