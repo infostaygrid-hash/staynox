@@ -69,6 +69,32 @@
   --transition-slow: 500ms ease;
 }
 
+[data-theme='dark'] {
+  --background: #111412;
+  --surface: #1C221D;
+  --surface-soft: #242B25;
+  --surface-sage: #1E2820;
+
+  --primary: #85A385;
+  --primary-hover: #9EBA9E;
+  --primary-light: #2A362B;
+
+  --text-primary: #E1E5DE;
+  --text-secondary: #929A93;
+  --text-muted: #68716A;
+  --text-on-primary: #111412;
+
+  --border: #2C362D;
+  --border-light: #232A24;
+
+  --success: #7DA67F;
+  --success-light: #203322;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.8);
+}
+
 /* 1. CSS Reset & Base */
 *, *::before, *::after {
   box-sizing: border-box;

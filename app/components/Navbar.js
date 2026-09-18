@@ -13,7 +13,22 @@ export default function Navbar() {
   const [wishlistCount, setWishlistCount] = useState(0);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [theme, setTheme] = useState('light');
   const pathname = usePathname();
+
+  // Handle theme initialization
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('staygrid_theme') || 'light';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('staygrid_theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
 
   // Listen for wishlist updates
   useEffect(() => {
@@ -118,6 +133,10 @@ export default function Navbar() {
                 Login / Sign Up
               </button>
             )}
+
+            <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle Dark Mode">
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
 
             <button
               className={`${styles.mobileMenuBtn} ${isMobileMenuOpen ? styles.menuOpen : ''}`}

@@ -69,13 +69,15 @@ export default function PropertyManager({ initialProperties }) {
               <th>Property</th>
               <th>Type</th>
               <th>City</th>
+              <th>Views</th>
+              <th>Leads</th>
               <th>Featured</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {properties?.length === 0 ? (
-              <tr><td colSpan="5" className={styles.empty}>No properties found.</td></tr>
+              <tr><td colSpan="7" className={styles.empty}>No properties found.</td></tr>
             ) : (
               properties?.map((prop) => (
                 <tr key={prop.id}>
@@ -91,6 +93,8 @@ export default function PropertyManager({ initialProperties }) {
                   </td>
                   <td><span className={styles.badge}>{prop.type}</span></td>
                   <td>{prop.city}</td>
+                  <td>👁️ {prop.views || 0}</td>
+                  <td>💬 {prop.whatsapp_clicks || 0}</td>
                   <td>{prop.featured ? '⭐ Yes' : 'No'}</td>
                   <td>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>

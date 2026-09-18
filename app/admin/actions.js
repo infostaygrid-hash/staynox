@@ -145,6 +145,28 @@ export async function deleteProperty(propertyId) {
   return { success: true };
 }
 
+export async function incrementView(propertyId) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  const { data } = await supabase.from('properties').select('views').eq('id', propertyId).single();
+  if (data) {
+    await supabase.from('properties').update({ views: (data.views || 0) + 1 }).eq('id', propertyId);
+  }
+}
+
+export async function incrementWhatsAppClick(propertyId) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
+  const { data } = await supabase.from('properties').select('whatsapp_clicks').eq('id', propertyId).single();
+  if (data) {
+    await supabase.from('properties').update({ whatsapp_clicks: (data.whatsapp_clicks || 0) + 1 }).eq('id', propertyId);
+  }
+}
+
 export async function approvePayment(ownerId) {
   const cookieStore = await cookies();
   if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) {
