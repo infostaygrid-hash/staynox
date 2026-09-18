@@ -146,14 +146,18 @@ export async function filterProperties(filters = {}) {
   if (filters.minPrice || filters.maxPrice) {
     const min = filters.minPrice || 0;
     const max = filters.maxPrice || Infinity;
-    results = results.filter(p => {
-      const minPropertyPrice = Math.min(
-        p.price.triple || Infinity,
-        p.price.double || Infinity,
-        p.price.single || Infinity
-      );
-      return minPropertyPrice >= min && minPropertyPrice <= max;
-    });
+    
+    // Only apply strict price filtering if the user actually chose a specific budget (max < 999999)
+    if (max < 999999) {
+      results = results.filter(p => {
+        const minPropertyPrice = Math.min(
+          p.price.triple || Infinity,
+          p.price.double || Infinity,
+          p.price.single || Infinity
+        );
+        return minPropertyPrice >= min && minPropertyPrice <= max;
+      });
+    }
   }
 
   return results;
