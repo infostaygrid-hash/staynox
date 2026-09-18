@@ -1,8 +1,11 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { supabase } from '@/utils/supabase/client';
+import { createClient } from '@supabase/supabase-js';
 import PropertyManager from './components/PropertyManager';
 import styles from './page.module.css';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function AdminDashboard() {
   // 1. Auth Check
@@ -13,8 +16,13 @@ export default async function AdminDashboard() {
     redirect('/admin/login');
   }
 
+  // Admin Client (Bypasses RLS)
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const adminSupabase = createClient(supabaseUrl, supabaseKey);
+
   // 2. Fetch Data
-  const { data: properties, error: propsError } = await supabase
+  const { data: properties, error: propsError } = await adminSupabase
     .from('properties')
     .select(`
       *,
@@ -25,17 +33,17 @@ export default async function AdminDashboard() {
     `)
     .order('created_at', { ascending: false });
 
-  const { data: enquiries, error: enqError } = await supabase
+  const { data: enquiries, error: enqError } = await adminSupabase
     .from('enquiries')
     .select('*')
     .order('created_at', { ascending: false });
 
-  const { data: pendingOwners, error: pendingError } = await supabase
+  const { data: pendingOwners, error: pendingError } = await adminSupabase
     .from('owners')
     .select('*')
     .like('subscription_status', 'pending_%');
 
-  const { data: allOwners, error: allOwnersError } = await supabase
+  const { data: allOwners, error: allOwnersError } = await adminSupabase
     .from('owners')
     .select('*')
     .order('created_at', { ascending: false });
