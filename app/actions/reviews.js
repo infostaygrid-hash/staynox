@@ -26,6 +26,9 @@ export async function submitReview(propertyId, formData) {
 
     if (error) throw error;
     
+    const { revalidatePath } = require('next/cache');
+    revalidatePath('/property/[slug]', 'page');
+    
     return { success: true };
   } catch (err) {
     console.error('Error submitting review:', err);

@@ -16,10 +16,10 @@ export default function ReviewsSection({ propertyId, reviews }) {
     const result = await submitReview(propertyId, formData);
     
     if (result.success) {
-      setMessage('? Review submitted! It will appear here after admin approval.');
+      setMessage('✅ Review submitted successfully!');
       e.target.reset();
     } else {
-      setMessage('? Failed to submit review: ' + result.error);
+      setMessage('❌ Failed to submit review: ' + result.error);
     }
     setIsSubmitting(false);
   };
