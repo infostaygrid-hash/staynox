@@ -48,10 +48,17 @@ export default async function AdminDashboard() {
     .select('*')
     .order('created_at', { ascending: false });
 
+  const { data: pendingReviews, error: reviewsError } = await adminSupabase
+    .from('property_reviews')
+    .select('*, properties(name)')
+    .eq('is_approved', false)
+    .order('created_at', { ascending: false });
+
   if (propsError) console.error(propsError);
   if (enqError) console.error(enqError);
   if (pendingError) console.error(pendingError);
   if (allOwnersError) console.error(allOwnersError);
+  if (reviewsError) console.error(reviewsError);
 
   if (propsError) {
     return <div style={{color: 'red', padding: '2rem'}}>Database Error: {propsError.message}</div>;
@@ -108,6 +115,57 @@ export default async function AdminDashboard() {
                           Approve Payment
                         </button>
                       </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {pendingReviews?.length > 0 && (
+        <section className={styles.card} style={{ marginBottom: '2rem', border: '2px solid #f59e0b' }}>
+          <h2>Action Required: Pending Reviews</h2>
+          <div className={styles.tableWrapper}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Property</th>
+                  <th>Student</th>
+                  <th>Rating</th>
+                  <th>Comment</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pendingReviews.map(review => (
+                  <tr key={review.id}>
+                    <td><strong>{review.properties?.name}</strong></td>
+                    <td>{review.student_name}</td>
+                    <td>{'⭐'.repeat(review.rating)}</td>
+                    <td><p style={{ maxWidth: '300px', whiteSpace: 'normal', margin: 0, fontSize: '0.9rem' }}>{review.comment}</p></td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <form action={async () => {
+                          'use server';
+                          const { approveReview } = await import('./actions.js');
+                          await approveReview(review.id);
+                        }}>
+                          <button type="submit" style={{ background: 'var(--success)', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                            Approve
+                          </button>
+                        </form>
+                        <form action={async () => {
+                          'use server';
+                          const { deleteReview } = await import('./actions.js');
+                          await deleteReview(review.id);
+                        }}>
+                          <button type="submit" style={{ background: '#ef4444', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                            Delete
+                          </button>
+                        </form>
+                      </div>
                     </td>
                   </tr>
                 ))}

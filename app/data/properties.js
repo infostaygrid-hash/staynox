@@ -12,6 +12,7 @@ const formatProperty = (p) => {
     amenities: p.property_amenities ? p.property_amenities.map(a => a.amenity) : [],
     images: p.property_images ? p.property_images.sort((a, b) => a.sort_order - b.sort_order).map(i => i.url) : [],
     rules: p.property_rules ? p.property_rules.map(r => r.rule) : [],
+    reviews: p.property_reviews ? p.property_reviews.filter(r => r.is_approved) : [],
     contact: { phone: p.phone, whatsapp: p.whatsapp },
     isVerified: p.is_verified !== undefined ? p.is_verified : (p.rating >= 4.5)
   };
@@ -62,7 +63,8 @@ export async function getPropertyBySlug(slug) {
       property_prices (*),
       property_amenities (amenity),
       property_images (url, sort_order),
-      property_rules (rule)
+      property_rules (rule),
+      property_reviews (id, student_name, rating, comment, is_approved, created_at)
     `)
     .eq('slug', slug)
     .single();

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { getPropertyBySlug, getProperties } from '@/app/data/properties';
 import PropertyCard from '@/app/components/PropertyCard';
+import ReviewsSection from '@/app/components/ReviewsSection';
 import { incrementView, incrementWhatsAppClick } from '@/app/admin/actions';
 import styles from './page.module.css';
 
@@ -207,6 +208,8 @@ export default function PropertyPage({ params }) {
                 ))}
               </ul>
             </div>
+
+            <ReviewsSection propertyId={property.id} reviews={property.reviews} />
           </div>
 
           {/* Right Column - Sticky Sidebar */}
