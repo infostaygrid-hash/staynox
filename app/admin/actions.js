@@ -112,6 +112,12 @@ export async function saveProperty(formData) {
     );
   }
 
+  // Clear cache so the new property shows up instantly
+  const { revalidatePath } = require('next/cache');
+  revalidatePath('/admin');
+  revalidatePath('/listings');
+  revalidatePath('/');
+
   return { success: true, id: propertyId };
 }
 
