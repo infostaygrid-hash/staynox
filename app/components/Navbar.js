@@ -87,7 +87,6 @@ export default function Navbar() {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Properties', path: '/listings' },
-    { name: 'Roommates', path: '/roommates' },
     { name: 'Wishlist', path: '/wishlist', count: wishlistCount },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
