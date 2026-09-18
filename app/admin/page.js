@@ -53,6 +53,10 @@ export default async function AdminDashboard() {
   if (pendingError) console.error(pendingError);
   if (allOwnersError) console.error(allOwnersError);
 
+  if (propsError) {
+    return <div style={{color: 'red', padding: '2rem'}}>Database Error: {propsError.message}</div>;
+  }
+
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>

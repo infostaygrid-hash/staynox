@@ -98,7 +98,7 @@ export async function filterProperties(filters = {}) {
     .select(`
       *,
       property_prices (*),
-      property_amenities!inner (amenity),
+      property_amenities (amenity),
       property_images (url, sort_order),
       property_rules (rule)
     `)
