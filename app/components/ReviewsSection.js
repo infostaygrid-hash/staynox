@@ -33,12 +33,21 @@ export default function ReviewsSection({ propertyId, reviews }) {
           reviews.map(review => (
             <div key={review.id} style={{ background: 'var(--surface-soft)', padding: '1.5rem', borderRadius: '12px', border: '1px solid var(--border)' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                <strong style={{ fontSize: '1.1rem' }}>{review.student_name}</strong>
-                <span style={{ fontSize: '1.2rem', color: '#f59e0b' }}>{'?'.repeat(review.rating)}{'?'.repeat(5 - review.rating)}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <strong style={{ fontSize: '1.1rem' }}>{review.student_name}</strong>
+                  {review.is_verified_student && (
+                    <span title="Verified Student" style={{ color: '#3b82f6', fontSize: '1.2rem', display: 'flex', alignItems: 'center' }}>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.4-1.4 3.6 3.6 7.6-7.6L19 8l-9 9z"/>
+                      </svg>
+                    </span>
+                  )}
+                </div>
+                <span style={{ fontSize: '1.2rem', color: '#f59e0b' }}>{'⭐'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
               </div>
               <p style={{ margin: 0, color: 'var(--text-secondary)' }}>{review.comment}</p>
               <small style={{ color: 'var(--text-muted)', display: 'block', marginTop: '0.5rem' }}>
-                {new Date(review.created_at).toLocaleDateString()}
+                {new Date(review.created_at).toLocaleDateString()} {review.college_name && `• ${review.college_name}`}
               </small>
             </div>
           ))
@@ -53,6 +62,10 @@ export default function ReviewsSection({ propertyId, reviews }) {
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Your Name</label>
             <input name="student_name" type="text" required style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text-primary)' }} placeholder="John Doe" />
+          </div>
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>College / University (Optional)</label>
+            <input name="college_name" type="text" style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text-primary)' }} placeholder="e.g. Sharda University" />
           </div>
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Rating</label>

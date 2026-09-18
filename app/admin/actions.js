@@ -221,3 +221,15 @@ export async function deleteReview(reviewId) {
   revalidatePath('/property/[slug]', 'page');
   return { success: true };
 }
+export async function verifyStudentReview(reviewId) {
+  const cookieStore = await cookies();
+  if (cookieStore.get('admin_token')?.value !== process.env.ADMIN_PASSWORD) return { success: false };
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabase = createClient(supabaseUrl, supabaseKey);
+  await supabase.from('property_reviews').update({ is_verified_student: true }).eq('id', reviewId);
+  const { revalidatePath } = require('next/cache');
+  revalidatePath('/admin');
+  revalidatePath('/property/[slug]', 'page');
+  return { success: true };
+}

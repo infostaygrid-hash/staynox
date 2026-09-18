@@ -142,11 +142,26 @@ export default async function AdminDashboard() {
                 {pendingReviews.map(review => (
                   <tr key={review.id}>
                     <td><strong>{review.properties?.name}</strong></td>
-                    <td>{review.student_name}</td>
+                    <td>
+                      {review.student_name}
+                      {review.college_name && <div style={{ fontSize: '0.8rem', color: 'gray' }}>{review.college_name}</div>}
+                      {review.is_verified_student && <div style={{ fontSize: '0.8rem', color: '#3b82f6', fontWeight: 'bold' }}>✓ Verified</div>}
+                    </td>
                     <td>{'⭐'.repeat(review.rating)}</td>
                     <td><p style={{ maxWidth: '300px', whiteSpace: 'normal', margin: 0, fontSize: '0.9rem' }}>{review.comment}</p></td>
                     <td>
-                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        {!review.is_verified_student && review.college_name && (
+                          <form action={async () => {
+                            'use server';
+                            const { verifyStudentReview } = await import('./actions.js');
+                            await verifyStudentReview(review.id);
+                          }}>
+                            <button type="submit" style={{ background: '#3b82f6', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                              Verify Student
+                            </button>
+                          </form>
+                        )}
                         <form action={async () => {
                           'use server';
                           const { approveReview } = await import('./actions.js');

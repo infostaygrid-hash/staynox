@@ -9,19 +9,22 @@ export async function submitReview(propertyId, formData) {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const student_name = formData.get('student_name');
+    const college_name = formData.get('college_name');
     const rating = parseInt(formData.get('rating'), 10);
     const comment = formData.get('comment');
 
     if (!student_name || !rating || !comment) {
-      return { success: false, error: 'All fields are required' };
+      return { success: false, error: 'All required fields must be filled' };
     }
 
     const { error } = await supabase.from('property_reviews').insert({
       property_id: propertyId,
       student_name,
+      college_name,
       rating,
       comment,
-      is_approved: false
+      is_approved: false,
+      is_verified_student: false
     });
 
     if (error) throw error;
