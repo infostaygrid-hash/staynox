@@ -26,13 +26,13 @@ export async function POST(req) {
           .eq('id', ownerId);
       }
 
-      return NextResponse.redirect(\/owner/dashboard?payment=success&tx=\, { status: 302 });
+      return NextResponse.redirect(`${baseUrl}/owner/dashboard?payment=success&tx=${transactionId}`, { status: 302 });
     } else {
-      return NextResponse.redirect(\/owner/dashboard?payment=failed, { status: 302 });
+      return NextResponse.redirect(`${baseUrl}/owner/dashboard?payment=failed`, { status: 302 });
     }
   } catch (error) {
     console.error('Callback error:', error);
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://staynox.vercel.app';
-    return NextResponse.redirect(\/owner/dashboard?payment=error, { status: 302 });
+    return NextResponse.redirect(`${baseUrl}/owner/dashboard?payment=error`, { status: 302 });
   }
 }
