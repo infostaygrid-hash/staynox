@@ -16,7 +16,7 @@ export async function POST(req) {
 
     // Base URL of our app for redirect
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://staynox.vercel.app';
-    const transactionId = `T${Date.now()}`;
+    const transactionId = `T${Date.now()}_${ownerId}`;
     const merchantUserId = `MUID${ownerId.replace(/[^a-zA-Z0-9]/g, '').substring(0, 10)}`;
 
     const payload = {
