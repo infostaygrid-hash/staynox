@@ -189,6 +189,7 @@ export default function PropertyPage({ params }) {
             <div className={styles.amenitiesSection}>
               <h2>Amenities</h2>
               <div className={styles.amenitiesGrid}>
+                {/* 1. Show all standard amenities (highlighted if available, gray if not) */}
                 {allAmenities.map((amenity) => {
                   const isAvailable = property.amenities.some(a => a.toLowerCase() === amenity.label.toLowerCase() || a.toLowerCase() === amenity.id.toLowerCase());
                   return (
@@ -201,6 +202,19 @@ export default function PropertyPage({ params }) {
                     </div>
                   );
                 })}
+                
+                {/* 2. Show any custom amenities the admin typed that aren't in the standard list */}
+                {property.amenities
+                  .filter(custom => !allAmenities.some(std => std.label.toLowerCase() === custom.toLowerCase() || std.id.toLowerCase() === custom.toLowerCase()))
+                  .map((customAmenity, idx) => (
+                    <div 
+                      key={`custom-${idx}`} 
+                      className={`${styles.amenityCard} ${styles.available}`}
+                    >
+                      <span className={styles.amenityIcon}>✨</span>
+                      <span className={styles.amenityLabel}>{customAmenity}</span>
+                    </div>
+                ))}
               </div>
             </div>
 
