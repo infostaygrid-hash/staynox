@@ -44,10 +44,10 @@ export default function PropertyManager({ initialProperties }) {
     // Format property for the form
     const formatted = {
       ...prop,
-      prices: prop.price || { single: '', double: '', triple: '' },
-      amenities: prop.amenities?.join(', ') || '',
-      rules: prop.rules?.join(', ') || '',
-      images: prop.images?.join(', ') || '',
+      prices: (Array.isArray(prop.property_prices) ? prop.property_prices[0] : prop.property_prices) || { single: '', double: '', triple: '' },
+      amenities: prop.property_amenities?.map(a => a.amenity).join(', ') || '',
+      rules: prop.property_rules?.map(r => r.rule).join(', ') || '',
+      images: prop.property_images?.map(i => i.url).join(', ') || '',
       commute_times: prop.commute_times || '',
       vertical_video_url: prop.vertical_video_url || '',
     };
