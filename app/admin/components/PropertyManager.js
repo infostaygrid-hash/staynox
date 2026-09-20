@@ -45,9 +45,9 @@ export default function PropertyManager({ initialProperties }) {
     const formatted = {
       ...prop,
       prices: (Array.isArray(prop.property_prices) ? prop.property_prices[0] : prop.property_prices) || { single: '', double: '', triple: '' },
-      amenities: prop.property_amenities?.map(a => a.amenity).join(', ') || '',
-      rules: prop.property_rules?.map(r => r.rule).join(', ') || '',
-      images: prop.property_images?.map(i => i.url).join(', ') || '',
+      amenities: (Array.isArray(prop.property_amenities) ? prop.property_amenities : (prop.property_amenities ? [prop.property_amenities] : [])).map(a => a.amenity).join(', ') || '',
+      rules: (Array.isArray(prop.property_rules) ? prop.property_rules : (prop.property_rules ? [prop.property_rules] : [])).map(r => r.rule).join(', ') || '',
+      images: (Array.isArray(prop.property_images) ? prop.property_images : (prop.property_images ? [prop.property_images] : [])).map(i => i.url).join(', ') || '',
       commute_times: prop.commute_times || '',
       vertical_video_url: prop.vertical_video_url || '',
     };
