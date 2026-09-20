@@ -4,14 +4,13 @@ const formatProperty = (p) => {
   if (!p) return null;
   return {
     ...p,
-    price: p.property_prices?.[0] ? {
-      single: p.property_prices[0].single,
-      double: p.property_prices[0].double,
-      triple: p.property_prices[0].triple,
-    } : { single: null, double: null, triple: null },
-    amenities: p.property_amenities ? p.property_amenities.map(a => a.amenity) : [],
-    images: p.property_images ? p.property_images.sort((a, b) => a.sort_order - b.sort_order).map(i => i.url) : [],
-    rules: p.property_rules ? p.property_rules.map(r => r.rule) : [],
+    price: (() => {
+      const pp = Array.isArray(p.property_prices) ? p.property_prices[0] : p.property_prices;
+      return pp ? { single: pp.single, double: pp.double, triple: pp.triple } : { single: null, double: null, triple: null };
+    })(),
+    amenities: p.property_amenities ? (Array.isArray(p.property_amenities) ? p.property_amenities : [p.property_amenities]).map(a => a.amenity) : [],
+    images: p.property_images ? (Array.isArray(p.property_images) ? p.property_images : [p.property_images]).sort((a, b) => a.sort_order - b.sort_order).map(i => i.url) : [],
+    rules: p.property_rules ? (Array.isArray(p.property_rules) ? p.property_rules : [p.property_rules]).map(r => r.rule) : [],
     reviews: p.property_reviews ? p.property_reviews.filter(r => r.is_approved) : [],
     vertical_video_url: p.vertical_video_url || null,
     contact: { phone: p.phone, whatsapp: p.whatsapp },

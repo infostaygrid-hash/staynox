@@ -13,14 +13,9 @@ import styles from './page.module.css';
 const allAmenities = [
   { id: 'wifi', label: 'WiFi', icon: '📶' },
   { id: 'ac', label: 'AC', icon: '❄️' },
-  { id: 'food', label: 'Food', icon: '🍽️' },
+  { id: 'food', label: '3 Times Food', icon: '🍽️' },
   { id: 'laundry', label: 'Laundry', icon: '🧺' },
-  { id: 'parking', label: 'Parking', icon: '🅿️' },
-  { id: 'gym', label: 'Gym', icon: '💪' },
-  { id: 'tv', label: 'TV', icon: '📺' },
-  { id: 'power-backup', label: 'Power Backup', icon: '⚡' },
-  { id: 'security', label: 'Security', icon: '🔒' },
-  { id: 'cleaning', label: 'Cleaning', icon: '🧹' }
+  { id: 'cleaning', label: 'Daily Cleaning', icon: '🧹' }
 ];
 
 export default function PropertyPage({ params }) {
