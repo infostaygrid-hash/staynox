@@ -62,33 +62,20 @@ export default function PropertyCard({ property, onCompare, isComparing }) {
             ✅ Verified Property
           </div>
         )}
-        {(() => {
-          if (!id) return null;
-          const hash = id.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-          const badges = [
-            { text: `🔥 High Demand: ${(hash % 5) + 2} students viewing`, color: '#e74c3c', bg: '#fdf1f0' },
-            { text: `⚠️ Only ${(hash % 3) + 1} rooms left!`, color: '#f39c12', bg: '#fef7ec' },
-            { text: `⚡ Filling Fast in ${area}`, color: '#8e44ad', bg: '#f7f1f9' },
-            null // 25% chance of no badge to keep it realistic
-          ];
-          const badge = badges[hash % badges.length];
-          if (!badge) return null;
-          return (
-            <div className={styles.fomoBadge} style={{ color: badge.color, backgroundColor: badge.bg }}>
-              {badge.text}
-            </div>
-          );
-        })()}
         <div className={styles.priceRow}>
           <span className={styles.price}>From ₹{lowestPrice}{billingSuffix}</span>
           <span className={styles.rating}>⭐ {rating} ({reviews})</span>
         </div>
         <div className={styles.amenities}>
-          {amenities.slice(0, 4).map((amenity, i) => (
-            <span key={i} className={styles.amenityIcon} title={amenity}>
-              {amenityIcons[amenity] || '✨'}
-            </span>
-          ))}
+          {amenities.slice(0, 4).map((amenity, i) => {
+            const iconMatch = Object.entries(amenityIcons).find(([key]) => amenity.toLowerCase().includes(key.toLowerCase()));
+            if (!iconMatch) return null;
+            return (
+              <span key={i} className={styles.amenityIcon} title={amenity}>
+                {iconMatch[1]}
+              </span>
+            );
+          })}
         </div>
         <div className={styles.cardFooter}>
           <div className={styles.viewDetails}>View Details →</div>
