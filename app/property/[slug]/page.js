@@ -190,7 +190,7 @@ export default function PropertyPage({ params }) {
               <h2>Amenities</h2>
               <div className={styles.amenitiesGrid}>
                 {allAmenities.map((amenity) => {
-                  const isAvailable = property.amenities.includes(amenity.id);
+                  const isAvailable = property.amenities.some(a => a.toLowerCase() === amenity.label.toLowerCase() || a.toLowerCase() === amenity.id.toLowerCase());
                   return (
                     <div 
                       key={amenity.id} 
