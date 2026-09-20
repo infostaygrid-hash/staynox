@@ -15,9 +15,16 @@ export default function VerticalVideoPlayer({ videoUrl }) {
 
   // Detect if it's a YouTube shorts URL and convert to embed
   let embedUrl = currentRawUrl;
+  let isIframe = false;
+
   if (currentRawUrl.includes('youtube.com/shorts/')) {
     const id = currentRawUrl.split('shorts/')[1].split('?')[0];
     embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}`;
+    isIframe = true;
+  } else if (currentRawUrl.includes('instagram.com/reel/') || currentRawUrl.includes('instagram.com/p/')) {
+    const cleanUrl = currentRawUrl.split('?')[0].replace(/\/$/, '');
+    embedUrl = `${cleanUrl}/embed`;
+    isIframe = true;
   }
 
   const handleNext = () => {
@@ -63,7 +70,7 @@ export default function VerticalVideoPlayer({ videoUrl }) {
             maxHeight: '800px', background: 'black', borderRadius: '16px', overflow: 'hidden',
             boxShadow: '0 0 30px rgba(0,0,0,0.5)', position: 'relative'
           }}>
-            {embedUrl.includes('youtube') ? (
+            {isIframe ? (
               <iframe 
                 width="100%" height="100%" 
                 src={embedUrl} 
