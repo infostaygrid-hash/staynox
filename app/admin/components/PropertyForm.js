@@ -130,8 +130,8 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
                 <input type="url" name="video_url" value={formData.video_url} onChange={handleChange} placeholder="https://www.youtube.com/watch?v=..." />
               </div>
               <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
-                <label>Reels-Style Vertical Video Tour (YouTube Shorts or MP4 URL)</label>
-                <input type="url" name="vertical_video_url" value={formData.vertical_video_url} onChange={handleChange} placeholder="https://www.youtube.com/shorts/..." />
+                <label>Reels-Style Vertical Video Tours (YouTube Shorts or MP4 URLs - Comma Separated)</label>
+                <input type="text" name="vertical_video_url" value={formData.vertical_video_url} onChange={handleChange} placeholder="e.g. https://youtube.com/shorts/..., https://youtube.com/shorts/..." />
               </div>
             </div>
           </div>

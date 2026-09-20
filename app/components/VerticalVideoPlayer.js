@@ -3,15 +3,30 @@ import { useState } from 'react';
 
 export default function VerticalVideoPlayer({ videoUrl }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   if (!videoUrl) return null;
 
+  // Handle comma-separated list of URLs
+  const urls = videoUrl.split(',').map(s => s.trim()).filter(Boolean);
+  if (urls.length === 0) return null;
+
+  const currentRawUrl = urls[currentIndex];
+
   // Detect if it's a YouTube shorts URL and convert to embed
-  let embedUrl = videoUrl;
-  if (videoUrl.includes('youtube.com/shorts/')) {
-    const id = videoUrl.split('shorts/')[1].split('?')[0];
+  let embedUrl = currentRawUrl;
+  if (currentRawUrl.includes('youtube.com/shorts/')) {
+    const id = currentRawUrl.split('shorts/')[1].split('?')[0];
     embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1&loop=1&playlist=${id}`;
   }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % urls.length);
+  };
+  
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + urls.length) % urls.length);
+  };
 
   return (
     <>
@@ -24,7 +39,7 @@ export default function VerticalVideoPlayer({ videoUrl }) {
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)', transition: 'transform 0.2s', marginTop: '1rem'
         }}
       >
-        ?? Watch Video Tour
+        ▶️ Watch Video Tours ({urls.length})
       </button>
 
       {isOpen && (
@@ -46,7 +61,7 @@ export default function VerticalVideoPlayer({ videoUrl }) {
           <div style={{ 
             width: '100%', maxWidth: '450px', height: '80vh', 
             maxHeight: '800px', background: 'black', borderRadius: '16px', overflow: 'hidden',
-            boxShadow: '0 0 30px rgba(0,0,0,0.5)'
+            boxShadow: '0 0 30px rgba(0,0,0,0.5)', position: 'relative'
           }}>
             {embedUrl.includes('youtube') ? (
               <iframe 
@@ -58,7 +73,7 @@ export default function VerticalVideoPlayer({ videoUrl }) {
               />
             ) : (
               <video 
-                src={videoUrl} 
+                src={currentRawUrl} 
                 controls 
                 autoPlay 
                 loop 
@@ -66,8 +81,29 @@ export default function VerticalVideoPlayer({ videoUrl }) {
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             )}
+
+            {urls.length > 1 && (
+              <>
+                <button 
+                  onClick={handlePrev}
+                  style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', fontSize: '2rem', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', zIndex: 10001 }}
+                >
+                  ‹
+                </button>
+                <button 
+                  onClick={handleNext}
+                  style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white', fontSize: '2rem', borderRadius: '50%', width: '40px', height: '40px', cursor: 'pointer', zIndex: 10001 }}
+                >
+                  ›
+                </button>
+              </>
+            )}
           </div>
-          <p style={{ color: 'white', marginTop: '1rem', fontWeight: 500 }}>Swipe down or click X to close</p>
+          
+          <div style={{ color: 'white', marginTop: '1rem', fontWeight: 500, display: 'flex', gap: '8px', alignItems: 'center' }}>
+            {urls.length > 1 && <span>Video {currentIndex + 1} of {urls.length} • </span>}
+            Click X to close
+          </div>
         </div>
       )}
     </>
