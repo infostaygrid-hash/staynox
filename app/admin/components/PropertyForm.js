@@ -1,9 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { supabase } from '@/utils/supabase/client';
 import styles from './PropertyForm.module.css';
 
 export default function PropertyForm({ onClose, onSave, initialData }) {
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  
   const [formData, setFormData] = useState(initialData || {
     name: '', type: 'PG', gender: 'Boys', city: 'Greater Noida', area: '',
     address: '', description: '', featured: false, video_url: '', vertical_video_url: '',
@@ -22,6 +25,40 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
     }
   };
 
+  const handleFileUpload = async (e, fieldName) => {
+    try {
+      setUploading(true);
+      const files = Array.from(e.target.files);
+      const uploadedUrls = [];
+
+      for (const file of files) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        const filePath = `uploads/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('properties')
+          .upload(filePath, file);
+
+        if (uploadError) throw uploadError;
+
+        const { data } = supabase.storage.from('properties').getPublicUrl(filePath);
+        uploadedUrls.push(data.publicUrl);
+      }
+
+      // Append new URLs to existing comma-separated string
+      setFormData(prev => {
+        const existing = prev[fieldName] ? prev[fieldName] + ', ' : '';
+        return { ...prev, [fieldName]: existing + uploadedUrls.join(', ') };
+      });
+      
+    } catch (error) {
+      alert('Error uploading file: ' + error.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -34,7 +71,7 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
       <div className={styles.modal}>
         <div className={styles.header}>
           <h2>{initialData ? 'Edit Property' : 'Add New Property'}</h2>
-          <button className={styles.closeBtn} onClick={onClose}>×</button>
+          <button className={styles.closeBtn} onClick={onClose}>?</button>
         </div>
         
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -92,15 +129,15 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
             <h3>Pricing (Leave blank if N/A)</h3>
             <div className={styles.grid}>
               <div className={styles.field}>
-                <label>Single Sharing (₹)</label>
+                <label>Single Sharing (?)</label>
                 <input type="number" name="price_single" value={formData.prices.single} onChange={handleChange} />
               </div>
               <div className={styles.field}>
-                <label>Double Sharing (₹)</label>
+                <label>Double Sharing (?)</label>
                 <input type="number" name="price_double" value={formData.prices.double} onChange={handleChange} />
               </div>
               <div className={styles.field}>
-                <label>Triple Sharing (₹)</label>
+                <label>Triple Sharing (?)</label>
                 <input type="number" name="price_triple" value={formData.prices.triple} onChange={handleChange} />
               </div>
             </div>
@@ -121,25 +158,44 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
                 <label>Commute Times (e.g. Sharda University: 5 mins walk, Metro: 10 mins drive)</label>
                 <input type="text" name="commute_times" value={formData.commute_times} onChange={handleChange} />
               </div>
-              <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
-                <label>Images (Comma separated URLs)</label>
+              
+              <div className={styles.field} style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <label style={{ color: '#1e293b', fontWeight: 'bold' }}>?? Images</label>
+                <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '10px' }}>Upload directly from your device, or paste URLs below.</p>
+                <input 
+                  type="file" 
+                  multiple 
+                  accept="image/*" 
+                  onChange={(e) => handleFileUpload(e, 'images')} 
+                  style={{ marginBottom: '10px' }}
+                />
                 <textarea name="images" value={formData.images} onChange={handleChange} rows="2" placeholder="https://imgur.com/image1.jpg, https://imgur.com/image2.jpg" />
               </div>
+
               <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
                 <label>Video Walkthrough (YouTube URL)</label>
                 <input type="url" name="video_url" value={formData.video_url} onChange={handleChange} placeholder="https://www.youtube.com/watch?v=..." />
               </div>
-              <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
-                <label>Vertical Video Tours (YouTube Shorts, IG Reels, or MP4 - Comma Separated)</label>
+
+              <div className={styles.field} style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <label style={{ color: '#1e293b', fontWeight: 'bold' }}>?? Vertical Video Tours (Reels)</label>
+                <p style={{ fontSize: '0.85rem', color: '#64748b', marginBottom: '10px' }}>Upload MP4 files directly, or paste YouTube Shorts / IG Reels URLs.</p>
+                <input 
+                  type="file" 
+                  multiple 
+                  accept="video/mp4,video/quicktime" 
+                  onChange={(e) => handleFileUpload(e, 'vertical_video_url')} 
+                  style={{ marginBottom: '10px' }}
+                />
                 <input type="text" name="vertical_video_url" value={formData.vertical_video_url} onChange={handleChange} placeholder="e.g. https://youtube.com/shorts/..., https://instagram.com/reel/..." />
               </div>
             </div>
           </div>
 
           <div className={styles.footer}>
-            <button type="button" className={styles.cancelBtn} onClick={onClose} disabled={loading}>Cancel</button>
-            <button type="submit" className={styles.submitBtn} disabled={loading}>
-              {loading ? 'Saving...' : 'Save Property'}
+            <button type="button" className={styles.cancelBtn} onClick={onClose} disabled={loading || uploading}>Cancel</button>
+            <button type="submit" className={styles.submitBtn} disabled={loading || uploading} style={{ background: uploading ? '#cbd5e1' : '' }}>
+              {uploading ? 'Uploading Files...' : loading ? 'Saving...' : 'Save Property'}
             </button>
           </div>
         </form>
