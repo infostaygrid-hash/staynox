@@ -121,6 +121,9 @@ export async function filterProperties(filters = {}) {
   if (filters.search) {
     query = query.or(`name.ilike.%${filters.search}%,area.ilike.%${filters.search}%`);
   }
+  if (filters.area) {
+    query = query.ilike('area', `%${filters.area}%`);
+  }
 
   // Handle amenities filtering (requires all selected amenities to match)
   // This is a simplified approach; complex relational filtering might require a different query structure
@@ -140,7 +143,15 @@ export async function filterProperties(filters = {}) {
   // In-memory filter for amenities
   if (filters.amenities && filters.amenities.length > 0) {
     results = results.filter(p => 
-      filters.amenities.every(amenity => p.amenities.includes(amenity))
+      filters.amenities.every(amenity => 
+        p.amenities.some(a => {
+          const aLower = a.toLowerCase();
+          const filterLower = amenity.toLowerCase();
+          if (filterLower === 'food' && aLower.includes('food')) return true;
+          if (filterLower === 'cleaning' && aLower.includes('cleaning')) return true;
+          return aLower === filterLower || aLower.includes(filterLower);
+        })
+      )
     );
   }
 
