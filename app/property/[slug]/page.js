@@ -173,7 +173,7 @@ export default function PropertyPage({ params }) {
                     return (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', background: 'var(--surface-soft)', borderRadius: '8px', border: '1px solid var(--border)' }}>
                         <span style={{ fontSize: '1.2rem' }}>{icon}</span>
-                        <span style={{ fontWeight: 500, color: 'var(--text-dark)' }}>{commute.trim()}</span>
+                        <span style={{ fontWeight: 500, color: 'var(--text-primary)' }}>{commute.trim()}</span>
                       </div>
                     );
                   })}
