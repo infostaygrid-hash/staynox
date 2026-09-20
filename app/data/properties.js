@@ -122,7 +122,8 @@ export async function filterProperties(filters = {}) {
     query = query.or(`name.ilike.%${filters.search}%,area.ilike.%${filters.search}%`);
   }
   if (filters.area) {
-    query = query.ilike('area', `%${filters.area}%`);
+    const searchArea = filters.area.replace(' I', ' 1').replace(' II', ' 2').replace(' III', ' 3');
+    query = query.or(`area.ilike.%${filters.area}%,area.ilike.%${searchArea}%`);
   }
 
   // Handle amenities filtering (requires all selected amenities to match)

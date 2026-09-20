@@ -113,12 +113,12 @@ function ListingsContent() {
         results = results.filter(p => p.price?.[filters.sharing] != null);
       }
 
-      // Term filter (in-memory check against rules/desc)
+      // Term filter (monthly vs yearly)
       if (filters.term !== 'all') {
-        results = results.filter(p => 
-          (p.rules && p.rules.some(r => r.toLowerCase().includes(filters.term))) || 
-          (p.description && p.description.toLowerCase().includes(filters.term))
-        );
+        results = results.filter(p => {
+          const billing = p.billing_cycle || 'monthly';
+          return billing.toLowerCase() === filters.term;
+        });
       }
 
       // Verified filter
