@@ -110,10 +110,10 @@ export async function filterProperties(filters = {}) {
     query = query.ilike('city', `%${filters.city}%`);
   }
   if (filters.type && filters.type !== 'all') {
-    query = query.eq('type', filters.type);
+    query = query.ilike('type', filters.type);
   }
   if (filters.gender && filters.gender !== 'all') {
-    query = query.eq('gender', filters.gender);
+    query = query.ilike('gender', filters.gender);
   }
   if (filters.billing && filters.billing !== 'all') {
     query = query.eq('billing_cycle', filters.billing);
