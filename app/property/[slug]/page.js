@@ -13,7 +13,7 @@ import styles from './page.module.css';
 const allAmenities = [
   { id: 'wifi', label: 'WiFi', icon: '📶' },
   { id: 'ac', label: 'AC', icon: '❄️' },
-  { id: 'food', label: '3 Times Food', icon: '🍽️' },
+  { id: 'food', label: 'Food', icon: '🍽️' },
   { id: 'laundry', label: 'Laundry', icon: '🧺' },
   { id: 'cleaning', label: 'Daily Cleaning', icon: '🧹' }
 ];
@@ -186,7 +186,14 @@ export default function PropertyPage({ params }) {
               <div className={styles.amenitiesGrid}>
                 {/* 1. Show all standard amenities (highlighted if available, gray if not) */}
                 {allAmenities.map((amenity) => {
-                  const isAvailable = property.amenities.some(a => a.toLowerCase() === amenity.label.toLowerCase() || a.toLowerCase() === amenity.id.toLowerCase());
+                  const isAvailable = property.amenities.some(a => {
+                    const aLower = a.toLowerCase();
+                    const idLower = amenity.id.toLowerCase();
+                    const labelLower = amenity.label.toLowerCase();
+                    if (idLower === 'food' && aLower.includes('food')) return true;
+                    if (idLower === 'cleaning' && aLower.includes('cleaning')) return true;
+                    return aLower === labelLower || aLower === idLower;
+                  });
                   return (
                     <div 
                       key={amenity.id} 
@@ -200,7 +207,13 @@ export default function PropertyPage({ params }) {
                 
                 {/* 2. Show any custom amenities the admin typed that aren't in the standard list */}
                 {property.amenities
-                  .filter(custom => !allAmenities.some(std => std.label.toLowerCase() === custom.toLowerCase() || std.id.toLowerCase() === custom.toLowerCase()))
+                  .filter(custom => !allAmenities.some(std => {
+                    const customLower = custom.toLowerCase();
+                    const stdId = std.id.toLowerCase();
+                    if (stdId === 'food' && customLower.includes('food')) return true;
+                    if (stdId === 'cleaning' && customLower.includes('cleaning')) return true;
+                    return std.label.toLowerCase() === customLower || stdId === customLower;
+                  }))
                   .map((customAmenity, idx) => (
                     <div 
                       key={`custom-${idx}`} 
