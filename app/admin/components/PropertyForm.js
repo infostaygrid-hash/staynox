@@ -183,7 +183,7 @@ export default function PropertyForm({ onClose, onSave, initialData }) {
                 <input 
                   type="file" 
                   multiple 
-                  accept="video/mp4,video/quicktime" 
+                  accept="video/*" 
                   onChange={(e) => handleFileUpload(e, 'vertical_video_url')} 
                   style={{ marginBottom: '10px' }}
                 />
