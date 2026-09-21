@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
 import { filterProperties } from '@/app/data/properties';
 import PropertyCard from '@/app/components/PropertyCard';
 import CompareDock from '@/app/components/CompareDock';
@@ -607,13 +608,19 @@ function ListingsContent() {
               ) : (
                 <div className={`${styles.grid} ${isLoading ? styles.loading : ''}`}>
                   {filteredData.map((property, index) => (
-                    <div key={property.id} className={styles.cardWrapper} style={{ animationDelay: `${index * 0.05}s` }}>
+                    <motion.div 
+                      key={property.id} 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.3 }}
+                      className={styles.cardWrapper}
+                    >
                       <PropertyCard 
                         property={property} 
                         onCompare={handleCompareToggle}
                         isComparing={compareList.some(p => p.id === property.id)}
                       />
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               )}

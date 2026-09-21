@@ -262,8 +262,7 @@
   }
 
   .mobileMenuBtn {
-    display: block;
-    z-index: 1001;
+    display: none;
   }
 }
 
